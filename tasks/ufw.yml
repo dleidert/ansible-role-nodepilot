@@ -1,0 +1,24 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+- name: allow public port access
+  ufw:
+    rule: allow
+    port: '{{ item }}'
+  loop: '{{ nodepilot_ports_public }}'
+
+- name: allow limited port access for docker
+  ufw:
+    rule: allow
+    from_ip: '127.0.0.1'
+    to_ip: any
+    port: '{{ item }}'
+  loop: '{{ nodepilot_ports_private }}'
+
+- name: allow limited port access for docker
+  ufw:
+    rule: allow
+    from_ip: '172.16.0.0/12'
+    to_ip: any
+    port: '{{ item }}'
+  loop: '{{ nodepilot_ports_private }}'

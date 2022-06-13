@@ -1,0 +1,24 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+nodepilot_user_name: np
+
+nodepilot_user_comment: nodepilot Daemon user
+
+nodepilot_user_groups:
+  - sudo
+  - docker
+
+nodepilot_binary: np
+
+nodepilot_release: '0.12.12'
+
+nodepilot_ports_public:
+  - '22'
+  - '80'
+  - '443'
+  - '26656'
+
+nodepilot_ports_private:
+  - '19999'
+  - '34416'

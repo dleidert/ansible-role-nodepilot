@@ -1,0 +1,18 @@
+[Unit]
+Description=NodePilot Daemon
+#Documentation=man:nodepilot(8) man:nodepilot.service(8)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User={{ nodepilot_user }}
+Type=forking
+ExecStart=/usr/local/bin/{{ nodepilot_binary }} start -d
+ExecStop=/usr/local/bin/{{ nodepilot_binary }} stop
+Restart=on-failure
+RestartSec=60
+TimeoutSec=60
+
+[Install]
+WantedBy=multi-user.target
+Alias={{ nodepilot_binary }}.service

@@ -1,0 +1,23 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+- name: get nodepilot binary
+  get_url:
+    url: 'https://builds.decentralizedauthority.com/node-pilot/v{{ nodepilot_release }}/np'
+    dest: '/usr/local/bin/{{ nodepilot_binary }}'
+    force: true
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: create nodepilot service file
+  template:
+    src: '{{ item }}'
+    dest: '/{{ item }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - etc/systemd/system/nodepilot.service
+  notify:
+    - enable nodepilot service

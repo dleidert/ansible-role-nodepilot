@@ -1,0 +1,26 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+- name: add docker repository key
+  apt_key:
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    url: https://download.docker.com/linux/ubuntu/gpg
+    keyring: /usr/share/keyrings/docker-archive-keyring.gpg
+
+- name: create docker sources.list entry
+  apt_repository:
+    repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable'
+    state: present
+    filename: docker
+
+- name: install docker toolchain
+  apt:
+    install_recommends: true
+    name:
+      - aufs-tools
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+      - pigz
+      - slirp4netns
+    state: latest

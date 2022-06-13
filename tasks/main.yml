@@ -1,0 +1,39 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+- name: upgrade required environment
+  apt:
+    update_cache: true
+    upgrade: full
+
+- name: install required tools
+  apt:
+    name:
+      - lsb-release
+      - ca-certificates
+      - gnupg
+      - wget
+    state: latest
+
+- name: set up docker
+  include_tasks: docker.yml
+
+- name: remove unused tools
+  apt:
+    update_cache: false
+    name:
+      - apparmor
+      - git
+      - git-man
+    state: absent
+    autoremove: true
+    purge: true
+
+- name: set up nodepilot user
+  include_tasks: user.yml
+
+- name: set up nodepilot
+  include_tasks: nodepilot.yml
+
+- name: set up ufw
+  include_tasks: ufw.yml

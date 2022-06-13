@@ -1,0 +1,21 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+- name: create nodepilot daemon user
+  user:
+    name: '{{ nodepilot_user_name }}'
+    comment: '{{ nodepilot_user_comment }}'
+    password: '!'
+    create_home: true
+    shell: /bin/bash
+    groups: '{{ nodepilot_user_groups | join(",") }}'
+    append: true
+
+- name: allow passwordless sudo for nodepilot daemon user
+  lineinfile:
+    path: '/etc/sudoers.d/nodepilot'
+    line: '{{ nodepilot_user_name }} ALL=(ALL:ALL) NOPASSWD:ALL'
+    create: true
+    group: root
+    owner: root
+    mode: '0440'
