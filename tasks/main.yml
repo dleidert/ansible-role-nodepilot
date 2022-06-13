@@ -40,3 +40,5 @@
 
 - name: reboot machine
   include_tasks: reboot.yml
+  tags:
+    - reboot
