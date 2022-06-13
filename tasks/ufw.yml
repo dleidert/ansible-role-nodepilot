@@ -1,11 +1,20 @@
 # vim: set ts=2 sw=2 ai si et:
 ---
 
+- name: install ufw
+  apt:
+    name:
+      - ufw
+    state: latest
+
 - name: allow public port access
   ufw:
     rule: allow
     port: '{{ item }}'
   loop: '{{ nodepilot_ports_public }}'
+  notify:
+    - enable ufw
+    - restart ufw
 
 - name: allow limited port access for docker
   ufw:
@@ -14,6 +23,9 @@
     to_ip: any
     port: '{{ item }}'
   loop: '{{ nodepilot_ports_private }}'
+  notify:
+    - enable ufw
+    - restart ufw
 
 - name: allow limited port access for docker
   ufw:
@@ -22,3 +34,36 @@
     to_ip: any
     port: '{{ item }}'
   loop: '{{ nodepilot_ports_private }}'
+  notify:
+    - enable ufw
+    - restart ufw
+
+- name: block public traffic
+  notify:
+    - enable ufw
+    - restart ufw
+  block:
+
+    - name: create DOCKER-USER chain
+      blockinfile:
+        path: /etc/ufw/after.rules
+        marker: '# {mark} MANAGED CHAIN BLOCK'
+        insertbefore: "^# End required lines"
+        block:
+          :DOCKER-USER - [0:0]
+
+    - name: block public traffic via DOCKER-USER chain
+      blockinfile:
+        path: /etc/ufw/after.rules
+        marker: '# {mark} MANAGED RULE BLOCK'
+        insertbefore: "^# don't delete the 'COMMIT' line"
+        block: |
+          -F DOCKER-USER
+
+          -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 10.0/8
+          -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 100.64/10
+          -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 172.16/12
+          -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 192.168/16
+          -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 198.18/15
+
+          -A DOCKER-USER -j RETURN
