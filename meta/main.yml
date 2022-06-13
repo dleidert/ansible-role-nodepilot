@@ -5,6 +5,7 @@ dependencies: []
 
 galaxy_info:
   author: dleidert
+  role_name: nodepilot
   description: Setup a nodepilot instance.
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
