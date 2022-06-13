@@ -5,3 +5,9 @@
   service:
     name: nodepilot
     enabled: true
+
+- name: enable fstrim.timer
+  service:
+    name: fstrim.timer
+    enabled: yes
+    state: started

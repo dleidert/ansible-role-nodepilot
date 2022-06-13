@@ -21,3 +21,27 @@
     - etc/systemd/system/nodepilot.service
   notify:
     - enable nodepilot service
+
+- name: set nodepilot data directory and mount information
+  set_fact:
+    nodepilot_data_path: '{{ nodepilot_data_path | default("/home/{{ nodepilot_user_name }}/.node-pilot") }}'
+    nodepilot_data_mount_fs: '{{ nodepilot_data_mount_fs | default(ext4) }}'
+    nodepilot_data_mount_opts: '{{ nodepilot_data_mount_opts | default(defaults,noatime) }}'
+
+- name: mount nodepilot data directory
+  mount:
+    path: '{{ nodepilot_data_path }}'
+    src: 'UUID={{ ansible_facts.device_links.uuids[nodepilot_data_mount_point][0] | string }}'
+    fstype: '{{ nodepilot_data_mount_fs }}'
+    state: mounted
+    opts: '{{ nodepilot_data_mount_opts }}'
+  notify:
+    - enable fstrim.timer
+
+- name: set nodepilot data directory permissions and ownership
+  file:
+    path: '{{ nodepilot_data_path }}'
+    state: directory
+    owner: '{{ nodepilot_user_name }}'
+    group: '{{ nodepilot_user_name }}'
+    mode: '0755'
