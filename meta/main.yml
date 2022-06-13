@@ -2,3 +2,22 @@
 ---
 
 dependencies: []
+
+galaxy_info:
+  author: dleidert
+  description: Setup a nodepilot instance.
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - packaging
+    - development
+    - ansible
+    - automation
