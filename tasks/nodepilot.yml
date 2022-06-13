@@ -26,7 +26,7 @@
   set_fact:
     nodepilot_data_path: '{{ nodepilot_data_path | default("/home/{{ nodepilot_user_name }}/.node-pilot") }}'
     nodepilot_data_mount_fs: '{{ nodepilot_data_mount_fs | default(ext4) }}'
-    nodepilot_data_mount_opts: '{{ nodepilot_data_mount_opts | default(defaults,noatime) }}'
+    nodepilot_data_mount_opts: '{{ nodepilot_data_mount_opts | default("defaults,noatime") }}'
 
 - name: mount nodepilot data directory
   mount:
