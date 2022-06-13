@@ -1,0 +1,8 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+# nodepilot_data_path:
+
+nodepilot_data_mount_point: md4
+nodepilot_data_mount_fs: ext4
+nodepilot_data_mount_opts: defaults,noatime
