@@ -5,7 +5,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User={{ nodepilot_user }}
+User={{ nodepilot_user_name }}
 Type=forking
 ExecStart=/usr/local/bin/{{ nodepilot_binary }} start -d
 ExecStop=/usr/local/bin/{{ nodepilot_binary }} stop
@@ -15,4 +15,6 @@ TimeoutSec=60
 
 [Install]
 WantedBy=multi-user.target
+{% if nodepilot_binary != 'nodepilot' %}
 Alias={{ nodepilot_binary }}.service
+{% endif %}
