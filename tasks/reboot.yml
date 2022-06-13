@@ -1,0 +1,19 @@
+# vim: set ts=2 sw=2 ai si et:
+---
+
+- name: reboot machine
+  vars:
+    wait: 15
+  reboot:
+    msg: 'Rebooting into new system in {{ wait }} seconds...'
+    pre_reboot_delay: '{{ wait }}'
+    reboot_timeout: 180
+  tags: reboot
+  when: not ansible_check_mode
+
+- name: wait for server to come back online
+  wait_for_connection:
+    delay: 10
+    timeout: 200
+  tags: reboot
+  when: not ansible_check_mode
