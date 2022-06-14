@@ -9,9 +9,10 @@
 - name: install required tools
   apt:
     name:
-      - lsb-release
       - ca-certificates
       - gnupg
+      - lsb-release
+      - nmon
       - wget
     state: latest
 
