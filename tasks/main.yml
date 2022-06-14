@@ -11,6 +11,8 @@
     name:
       - ca-certificates
       - gnupg
+      - htop
+      - iotop
       - lsb-release
       - nmon
       - wget
