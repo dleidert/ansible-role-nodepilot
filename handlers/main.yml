@@ -3,6 +3,7 @@
 
 - name: enable nodepilot service
   service:
+    daemon_reload: true
     name: nodepilot
     enabled: true
 
