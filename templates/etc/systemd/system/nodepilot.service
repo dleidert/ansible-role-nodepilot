@@ -2,7 +2,8 @@
 Description=NodePilot Daemon
 #Documentation=man:nodepilot(8) man:nodepilot.service(8)
 Wants=network-online.target
-After=network-online.target
+Requires=docker.service
+After=network-online.target docker.service
 
 [Service]
 User={{ nodepilot_user_name }}
