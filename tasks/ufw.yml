@@ -62,6 +62,7 @@
 
           -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 10.0/8
           -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 100.64/10
+          -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 169.254/16
           -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 172.16/12
           -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 192.168/16
           -A DOCKER-USER -j DROP -o {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --sports 4689,9000 -d 198.18/15
