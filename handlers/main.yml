@@ -7,6 +7,12 @@
     name: nodepilot
     enabled: true
 
+- name: restart nodepilot service
+  service:
+    daemon_reload: true
+    name: nodepilot
+    state: restarted
+
 - name: enable fstrim.timer
   service:
     name: fstrim.timer

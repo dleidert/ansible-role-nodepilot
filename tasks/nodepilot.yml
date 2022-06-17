@@ -1,6 +1,29 @@
 # vim: set ts=2 sw=2 ai si et:
 ---
 
+- name: populate service facts
+  service_facts:
+
+- name: stop nodepilot service
+  service:
+    name: nodepilot.service
+    state: stopped
+    enabled: true
+  when:
+    - "'nodepilot.service' in services"
+  notify:
+    - restart nodepilot service
+
+- name: create backup copy of nodepilot's config
+  copy:
+    src: '/home/{{ nodepilot_user_name }}/.node-pilot/config'
+    dest: '/home/{{ nodepilot_user_name }}/.node-pilot/.backup.config.{{ ansible_date_time.iso8601_basic_short }}'
+    mode: preserve
+    remote_src: yes
+  when:
+    - "'nodepilot.service' in services"
+    - "ansible_facts.services['nodepilot.service']['state'] == 'running'"
+
 - name: get nodepilot binary
   get_url:
     url: 'https://builds.decentralizedauthority.com/node-pilot/v{{ nodepilot_release }}/np'
