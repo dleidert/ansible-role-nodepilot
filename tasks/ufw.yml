@@ -12,7 +12,7 @@
     insert: 1
     rule: allow
     direction: in
-    src: '{{ item }}'
+    from_ip: '{{ item }}'
   loop: '{{ nodepilot_ufw_allow_ip }}'
   when:
     - nodepilot_ufw_allow_ip is defined
