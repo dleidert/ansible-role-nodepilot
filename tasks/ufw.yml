@@ -9,6 +9,7 @@
 
 - name: allow free access for selected IPs
   ufw:
+    insert: 1
     rule: allow
     direction: in
     src: '{{ item }}'
