@@ -1,30 +1,45 @@
 # vim: set ts=2 sw=2 ai si et:
 ---
 
+# Name of the nodepilot system user.
 nodepilot_user_name: np
 
+# The comment part when creating the nodepilot system user.
 nodepilot_user_comment: nodepilot Daemon user
 
+# The default groups the nodepilot user must be part of.
 nodepilot_user_groups:
   - sudo
   - docker
 
+# The name under which the nnodepilot binary is saved on the system.
 nodepilot_binary: np
 
+# The nodepilot latest release version.
 nodepilot_release: '0.12.12'
 
+# Default list of public ports open for every nodepilot instance.
+# https://docs.decentralizedauthority.com/install#install-node-pilot
 nodepilot_ports_public:
   - '22'
   - '80'
   - '443'
   - '26656'
 
+# Add extra public ports here, e.g. to use external chains:
+# https://np-community.notion.site/Setup-External-Chain-7827b67c56f34eb2a3ec193e6be89d82
 nodepilot_ports_public_extra: []
 
+# This is the default list of private ports. Don't change.
+# https://docs.decentralizedauthority.com/install#install-node-pilot
 nodepilot_ports_private:
   - '19999'
   - '34416'
 
+# This is a list of private ports not open to the public, but docker. Add
+# your ports here.
 nodepilot_ports_private_extra: []
 
+# This is a list of IP addresses which are allowed to connect to any port, e.g.
+# https://np-community.notion.site/Setup-External-Chain-7827b67c56f34eb2a3ec193e6be89d82
 nodepilot_ufw_allow_ip: []
