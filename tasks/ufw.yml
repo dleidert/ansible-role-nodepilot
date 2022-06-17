@@ -11,7 +11,7 @@
   ufw:
     rule: allow
     direction: in
-    port: '{{ item }}'
+    src: '{{ item }}'
   loop: '{{ nodepilot_ufw_allow_ip }}'
   when:
     - nodepilot_ufw_allow_ip is defined
