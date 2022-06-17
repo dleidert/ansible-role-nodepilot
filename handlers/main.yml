@@ -1,6 +1,13 @@
 # vim: set ts=2 sw=2 ai si et:
 ---
 
+- name: backup nodepilot config
+  copy:
+    src: '/home/{{ nodepilot_user_name }}/.node-pilot/config'
+    dest: '/home/{{ nodepilot_user_name }}/.node-pilot/.backup.config.{{ ansible_date_time.iso8601_basic_short }}'
+    mode: preserve
+    remote_src: yes
+
 - name: enable nodepilot service
   service:
     daemon_reload: true
