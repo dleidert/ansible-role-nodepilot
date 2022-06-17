@@ -19,6 +19,12 @@ nodepilot_ports_public:
   - '443'
   - '26656'
 
+nodepilot_ports_public_extra: []
+
 nodepilot_ports_private:
   - '19999'
   - '34416'
+
+nodepilot_ports_private_extra: []
+
+nodepilot_ufw_allow_ip: []

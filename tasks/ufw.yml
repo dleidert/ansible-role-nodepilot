@@ -7,11 +7,20 @@
       - ufw
     state: latest
 
+- name: allow free access for selected IPs
+  ufw:
+    rule: allow
+    direction: in
+    port: '{{ item }}'
+  loop: '{{ nodepilot_ufw_allow_ip }}'
+  when:
+    - nodepilot_ufw_allow_ip is defined
+
 - name: allow public port access
   ufw:
     rule: allow
     port: '{{ item }}'
-  loop: '{{ nodepilot_ports_public }}'
+  loop: '{{ nodepilot_ports_public + nodepilot_ports_public_extra if nodepilot_ports_public_extra is defined }}'
   notify:
     - enable ufw
     - restart ufw
@@ -22,7 +31,7 @@
     from_ip: '127.0.0.1'
     to_ip: any
     port: '{{ item }}'
-  loop: '{{ nodepilot_ports_private }}'
+  loop: '{{ nodepilot_ports_private + nodepilot_ports_private_extra if nodepilot_ports_private_extra is defined }}'
   notify:
     - enable ufw
     - restart ufw
@@ -33,7 +42,7 @@
     from_ip: '172.16.0.0/12'
     to_ip: any
     port: '{{ item }}'
-  loop: '{{ nodepilot_ports_private }}'
+  loop: '{{ nodepilot_ports_private + nodepilot_ports_private_extra if nodepilot_ports_private_extra is defined }}'
   notify:
     - enable ufw
     - restart ufw
