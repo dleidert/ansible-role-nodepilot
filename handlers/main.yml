@@ -6,7 +6,7 @@
     src: '/home/{{ nodepilot_user_name }}/.node-pilot/config'
     dest: '/home/{{ nodepilot_user_name }}/.node-pilot/.backup.config.{{ ansible_date_time.iso8601_basic_short }}'
     mode: preserve
-    remote_src: yes
+    remote_src: true
 
 - name: enable nodepilot service
   service:
@@ -23,7 +23,7 @@
 - name: enable fstrim.timer
   service:
     name: fstrim.timer
-    enabled: yes
+    enabled: true
     state: started
 
 - name: enable ufw
