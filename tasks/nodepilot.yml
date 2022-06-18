@@ -18,7 +18,6 @@
   get_url:
     url: 'https://builds.decentralizedauthority.com/node-pilot/v{{ nodepilot_release }}/np'
     dest: '/usr/local/bin/{{ nodepilot_binary }}'
-    force: true
     owner: root
     group: root
     mode: '0755'
