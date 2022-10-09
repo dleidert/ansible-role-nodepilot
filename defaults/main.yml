@@ -16,7 +16,7 @@ nodepilot_user_groups:
 nodepilot_binary: np
 
 # The nodepilot latest release version.
-nodepilot_release: '0.12.14'
+nodepilot_release: '0.16.1'
 
 # Default list of public ports open for every nodepilot instance.
 # https://docs.decentralizedauthority.com/install#install-node-pilot
